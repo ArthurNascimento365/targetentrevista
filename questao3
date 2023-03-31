@@ -1,0 +1,65 @@
+using System;
+using System.IO;
+using System.Linq;
+using Newtonsoft.Json;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Ler o arquivo com os dados de faturamento mensal
+        string jsonString = File.ReadAllText("faturamento.json");
+        var faturamentoMensal = JsonConvert.DeserializeObject<int[]>(jsonString);
+
+        // Calcular o menor valor de faturamento diário
+        int menorFaturamento = faturamentoMensal.Min();
+
+        // Calcular o maior valor de faturamento diário
+        int maiorFaturamento = faturamentoMensal.Max();
+
+        // Calcular a média mensal de faturamento diário (excluindo os dias sem faturamento)
+        int faturamentoTotal = faturamentoMensal.Sum();
+        int diasComFaturamento = faturamentoMensal.Count(f => f > 0);
+        double mediaFaturamento = (double)faturamentoTotal / diasComFaturamento;
+
+        // Contar o número de dias em que o faturamento diário foi superior à média mensal
+        int diasAcimaDaMedia = faturamentoMensal.Count(f => f > mediaFaturamento);
+
+        // Imprimir os resultados
+        Console.WriteLine($"Menor faturamento diário: R${menorFaturamento}");
+        Console.WriteLine($"Maior faturamento diário: R${maiorFaturamento}");
+        Console.WriteLine($"Número de dias com faturamento acima da média mensal: {diasAcimaDaMedia}");
+    }
+}
+
+4)using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Valores de faturamento mensal por estado
+        double sp = 67836.43;
+        double rj = 36678.66;
+        double mg = 29229.88;
+        double es = 27165.48;
+        double outros = 19849.53;
+
+        // Calcular o valor total mensal da distribuidora
+        double valorTotal = sp + rj + mg + es + outros;
+
+        // Calcular o percentual de representação de cada estado
+        double percSp = (sp / valorTotal) * 100;
+        double percRj = (rj / valorTotal) * 100;
+        double percMg = (mg / valorTotal) * 100;
+        double percEs = (es / valorTotal) * 100;
+        double percOutros = (outros / valorTotal) * 100;
+
+        // Imprimir os resultados
+        Console.WriteLine($"SP representou {percSp:F2}% do valor total mensal da distribuidora.");
+        Console.WriteLine($"RJ representou {percRj:F2}% do valor total mensal da distribuidora.");
+        Console.WriteLine($"MG representou {percMg:F2}% do valor total mensal da distribuidora.");
+        Console.WriteLine($"ES representou {percEs:F2}% do valor total mensal da distribuidora.");
+        Console.WriteLine($"Outros representaram {percOutros:F2}% do valor total mensal da distribuidora.");
+    }
+}
