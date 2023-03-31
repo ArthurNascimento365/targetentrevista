@@ -1,0 +1,27 @@
+using System;
+
+class Program {
+    static void Main(string[] args) {
+        int num, a = 0, b = 1, c = 0;
+        bool isFibonacci = false;
+        
+        Console.Write("Digite um numero inteiro: ");
+        num = int.Parse(Console.ReadLine());
+        
+        while (c < num) {
+            c = a + b;
+            a = b;
+            b = c;
+            if (c == num) {
+                isFibonacci = true;
+                break;
+            }
+        }
+        
+        if (isFibonacci) {
+            Console.WriteLine("{0} faz parte da sequência de Fibonacci.", num);
+        } else {
+            Console.WriteLine("{0} nao faz parte da sequência de Fibonacci.", num);
+        }
+    }
+}
